@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+*poppins{
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}
+
+.hind-siliguri{
+  font-family: "Hind Siliguri", sans-serif;
+  font-style: normal;
+}
+
+.activeBtn{
+  background-color: #422AD5;
+  color: white;
+
+}
