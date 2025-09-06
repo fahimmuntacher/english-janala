@@ -150,10 +150,10 @@ document.getElementById("btn-search").addEventListener("click", () => {
         const allWords = data.data;
         
         const filterWords = allWords.filter(word => word.word.toLowerCase().includes(searchValue));
+        document.getElementById('default-message').innerHTML = '';
         const wordsContainer = document.getElementById('words-container');
         wordsContainer.innerHTML = " ";
         if(filterWords.length === 0){
-            
             wordsContainer.innerHTML = `
             <div class="text-center space-y-5 col-span-full">
                 <div>
