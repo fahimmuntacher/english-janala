@@ -47,7 +47,7 @@ const displayWordDetail = (word) => {
         <h1 class="font-bold text-4xl">${word.word} <span>(<i class="fa-solid fa-microphone-lines"></i> : ${word.pronunciation})</span></h1>
         <div class="space-y-2">
             <p class="font-semibold text-xl">Meaning</p>
-            <p class="font-semibold text-2xl">আগ্রহী</p>
+            <p class="font-semibold text-2xl">${word.meaning}</p>
         </div>
         <div class="space-y-2">
             <h2 class="font-semibold text-2xl">Example</h2>
@@ -138,3 +138,37 @@ const pronounceWord = (word) => {
     utterance.lang = "en-US";
     window.speechSynthesis.speak(utterance);
 };
+
+document.getElementById("btn-search").addEventListener("click", () => {
+    const searchValue = document.getElementById("input-search").value.trim().toLowerCase();
+    
+
+    fetch("https://openapi.programming-hero.com/api/words/all")
+    .then(res => res.json())
+    .then(data => {
+        
+        const allWords = data.data;
+        
+        const filterWords = allWords.filter(word => word.word.toLowerCase().includes(searchValue));
+        const wordsContainer = document.getElementById('words-container');
+        wordsContainer.innerHTML = " ";
+        if(filterWords.length === 0){
+            
+            wordsContainer.innerHTML = `
+            <div class="text-center space-y-5 col-span-full">
+                <div>
+                    <i class="fa-solid fa-triangle-exclamation text-8xl text-gray-500"></i>
+                </div>
+                <p class="text-gray-400 text-xl">এই word এখনো যুক্ত করা হয়নি।</p>
+                <h1 class="text-3xl font-semibold">অন্য Words খুঁজুন!</h1>
+            </div>`;
+         spinner(false);
+         return;
+        }
+        displayLevelLesson(filterWords);
+        
+        
+        spinner(false);
+    })
+    
+})
